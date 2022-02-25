@@ -1,0 +1,16 @@
+<h1>Admin Dashboard</h1>
+
+  <ul>
+    <li><a href="/admin/merchants">Merchants</a></li>
+    <li><a href="/admin/invoices">Invoices</a></li>
+  </ul>
+
+  <section id="top_customers">
+  <h3>Top Customers</h3>
+
+  <p><% Admin.top_customers(5).each do |customer| %>
+      <%require 'pry';binding.pry%>
+      <%= "#{customer.first_name} #{customer.last_name} - #{Customer.successful_transaction_count(customer.id)} purchases" %> <br>
+  <% end %></p>
+
+  </section>

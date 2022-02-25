@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  belongs_to :admin
   has_many :invoices, dependent: :delete_all
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
@@ -8,6 +9,10 @@ class Customer < ApplicationRecord
   def self.transaction_count(id)
     Customer.find(id).transactions.count
   end
-  
-  
+
+  def self.successful_transaction_count(id)
+    Customer.joins(:transactions).where(transactions: {result: 0}, customers: {id: id}).count
+  end
+
+
 end
