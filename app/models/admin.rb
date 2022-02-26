@@ -1,7 +1,10 @@
+require './app/models/customer'
 class Admin < ApplicationRecord
-has_many :customers
+  #include Customer
+#has_many :customers
 
 def self.top_customers(count)
+  #binding.pry
   customer = Customer.find_by_sql("SELECT customers.* FROM customers
                         JOIN invoices ON customers.id = invoices.customer_id
                         JOIN invoice_items ON invoices.id = invoice_items.invoice_id

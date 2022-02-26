@@ -1,5 +1,4 @@
 class Customer < ApplicationRecord
-  belongs_to :admin
   has_many :invoices, dependent: :delete_all
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
