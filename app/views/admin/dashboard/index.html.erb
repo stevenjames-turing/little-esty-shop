@@ -17,3 +17,14 @@
     <% end %>
     
 </div>
+
+<div class = "incomplete_invoices">
+<h3>Incomplete Invoices</h3>
+<% @incomplete.each do |invoice|  %>
+    <ul>
+        <li><a href = "/admin/invoices/<%= "#{invoice.id}"%>"> <%= invoice.id%> </a></li>
+    </ul>
+    
+    <% end %>
+    
+</div>

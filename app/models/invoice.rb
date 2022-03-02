@@ -17,6 +17,13 @@ class Invoice < ApplicationRecord
     invoice_items.sum('invoice_items.unit_price * invoice_items.quantity')
   end
 
+  def self.incomplete_invoices
+    joins(:invoice_items).
+    where(invoice_items: {status: [0,1]}).
+    select('invoices.*, COUNT(invoice_items.id)').
+    group(:id)
+  end
+
   private
   def integer_status
     self.status = 0 if self.status == 'in progress'
