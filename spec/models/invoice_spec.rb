@@ -36,4 +36,24 @@ RSpec.describe Invoice, type: :model do
       end
     end
   end
+  describe 'class methods' do 
+    it '#incomplete_invoices' do 
+      invoice_1 = create(:invoice)
+      invoice_item_1 = create(:invoice_item, status: 'pending', invoice_id: invoice_1.id)
+      invoice_item_2 = create(:invoice_item, status: 'shipped', invoice_id: invoice_1.id)
+      invoice_item_3 = create(:invoice_item, status: 'packaged', invoice_id: invoice_1.id)
+      invoice_2 = create(:invoice)
+      invoice_item_4 = create(:invoice_item, status: 'shipped', invoice_id: invoice_2.id)
+      invoice_item_5 = create(:invoice_item, status: 'shipped', invoice_id: invoice_2.id)
+      invoice_item_6 = create(:invoice_item, status: 'shipped', invoice_id: invoice_2.id)
+      invoice_3 = create(:invoice)
+      invoice_item_7 = create(:invoice_item, status: 'packaged', invoice_id: invoice_3.id)
+      invoice_item_8 = create(:invoice_item, status: 'packaged', invoice_id: invoice_3.id)
+      invoice_item_9 = create(:invoice_item, status: 'packaged', invoice_id: invoice_3.id)
+      incomplete = Invoice.incomplete_invoices
+      expect(incomplete.length).to eq(2)
+      expect(incomplete.first).to eq(invoice_1)
+      expect(incomplete.second).to eq(invoice_3)
+    end
+  end
 end

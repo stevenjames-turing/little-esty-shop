@@ -44,4 +44,37 @@ RSpec.describe "Dashboard Index" do
             end
         end
     end
+    describe 'incomplete invoices' do 
+        before :each do 
+            @invoice_1 = create(:invoice)
+            @invoice_item_1 = create(:invoice_item, status: 'pending', invoice_id: @invoice_1.id)
+            @invoice_item_2 = create(:invoice_item, status: 'shipped', invoice_id: @invoice_1.id)
+            @invoice_item_3 = create(:invoice_item, status: 'packaged', invoice_id: @invoice_1.id)
+            @invoice_2 = create(:invoice)
+            @invoice_item_4 = create(:invoice_item, status: 'shipped', invoice_id: @invoice_2.id)
+            @invoice_item_5 = create(:invoice_item, status: 'shipped', invoice_id: @invoice_2.id)
+            @invoice_item_6 = create(:invoice_item, status: 'shipped', invoice_id: @invoice_2.id)
+            @invoice_3 = create(:invoice)
+            @invoice_item_7 = create(:invoice_item, status: 'packaged', invoice_id: @invoice_3.id)
+            @invoice_item_8 = create(:invoice_item, status: 'packaged', invoice_id: @invoice_3.id)
+            @invoice_item_9 = create(:invoice_item, status: 'packaged', invoice_id: @invoice_3.id)
+        end
+        it 'will list ids of all invoices that have not been shipped yet' do 
+            visit(admin_dashboard_index_url)
+            within ".incomplete_invoices" do 
+                expect(page).to have_content(@invoice_1.id)
+                expect(page).to have_content(@invoice_3.id)
+                expect(page).to_not have_content(@invoice_2.id)
+            end
+        end
+        it 'will have links to the invoice admin show page' do 
+            visit(admin_dashboard_index_url)
+            within ".incomplete_invoices" do 
+                expect(page).to have_link(@invoice_1.id)
+                expect(page).to have_link(@invoice_3.id)
+                click_link(@invoice_1.id)
+            end
+            expect(current_path).to eq("/admin/invoices/#{@invoice_1.id}")
+        end
+    end
 end
