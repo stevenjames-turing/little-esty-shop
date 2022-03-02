@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  it {should validate_presence_of :first_name}
-  it {should validate_presence_of(:last_name)}
+  it { should validate_presence_of :first_name }
+  it { should validate_presence_of(:last_name) }
 
-  it {should have_many :invoices}
-  it {should have_many(:invoice_items).through(:invoices)}
-  it {should have_many(:transactions).through(:invoices)}
+  it { should have_many :invoices }
+  it { should have_many(:invoice_items).through(:invoices) }
+  it { should have_many(:transactions).through(:invoices) }
 
-  describe 'class methods' do 
-    it 'will return the top customers' do 
+  describe 'class methods' do
+    it 'will return the top customers' do
       customer_1 = create(:customer, first_name: 'Aaron', last_name: 'Adams')
       customer_2 = create(:customer, first_name: 'Barry', last_name: 'Bonds')
       customer_3 = create(:customer, first_name: 'Carl', last_name: 'Cassidy')
@@ -57,5 +57,5 @@ RSpec.describe Customer, type: :model do
       expect(Customer.transaction_count(customer_3.id)).to eq(3)
       expect(Customer.transaction_count(customer_4.id)).to eq(5)
     end
-  end 
+  end
 end

@@ -1,5 +1,4 @@
 class InvoicesController < ApplicationController
-
   def index
     @invoices = helpers.sortable(Invoice.all, params)
     @merchant = Merchant.find(params[:merchant_id])
@@ -19,6 +18,7 @@ class InvoicesController < ApplicationController
   end
 
   private
+
   def invoice_item_params
     params.permit(:status)
   end

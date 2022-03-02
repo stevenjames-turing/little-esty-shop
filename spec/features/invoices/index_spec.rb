@@ -15,10 +15,9 @@ RSpec.describe 'merchants invoices index' do
     visit "/merchants/#{merchant_1.id}/invoices"
 
     expect(page).to have_content("Merchant's Invoices")
-    expect(page).to have_content("Invoice")
+    expect(page).to have_content('Invoice')
     expect(page).to have_content(invoice_1.id)
   end
-
 
   it 'displays a link for each invoice id that connects to merchant invoice show page' do
     merchant_1 = create(:merchant)
@@ -32,7 +31,7 @@ RSpec.describe 'merchants invoices index' do
     invoice_item_2 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_2.id)
     visit "/merchants/#{merchant_1.id}/invoices"
 
-    click_link "#{invoice_1.id}"
+    click_link invoice_1.id.to_s
 
     expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}")
   end

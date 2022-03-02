@@ -16,7 +16,7 @@ RSpec.describe 'merchants invoices show page' do
 
     visit "/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}"
 
-    expect(page).to have_content("Invoice Information")
+    expect(page).to have_content('Invoice Information')
     expect(page).to have_content(invoice_1.id)
     expect(page).to have_content(invoice_1.status)
     expect(page).to have_content(invoice_1.created_at_date)
@@ -47,7 +47,7 @@ RSpec.describe 'merchants invoices show page' do
 
     visit "/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}"
 
-    expect(page).to have_content("Invoice Item Information")
+    expect(page).to have_content('Invoice Item Information')
     expect(page).to have_content(item_1.name)
     expect(page).to have_content(invoice_item_1.quantity)
     expect(page).to have_content(item_1.unit_price)
@@ -88,25 +88,25 @@ RSpec.describe 'merchants invoices show page' do
     visit "/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}"
 
     within("##{invoice_item_1.id}") do
-      select "#{invoice_item_1.status}"
-      select("packaged")
-      expect(page).to have_button("Update Item Status")
+      select invoice_item_1.status.to_s
+      select('packaged')
+      expect(page).to have_button('Update Item Status')
 
-      click_button "Update Item Status"
-      expect(page).to have_select(selected: "packaged")
-      expect(page).to_not have_select(selected: "shipped")
-      expect(page).to_not have_select(selected: "pending")
+      click_button 'Update Item Status'
+      expect(page).to have_select(selected: 'packaged')
+      expect(page).to_not have_select(selected: 'shipped')
+      expect(page).to_not have_select(selected: 'pending')
     end
 
     within("##{invoice_item_2.id}") do
-      select "#{invoice_item_2.status}"
-      select("shipped")
-      expect(page).to have_button("Update Item Status")
+      select invoice_item_2.status.to_s
+      select('shipped')
+      expect(page).to have_button('Update Item Status')
 
-      click_button "Update Item Status"
-      expect(page).to have_select(selected: "shipped")
-      expect(page).to_not have_select(selected: "pending")
-      expect(page).to_not have_select(selected: "packaged")
+      click_button 'Update Item Status'
+      expect(page).to have_select(selected: 'shipped')
+      expect(page).to_not have_select(selected: 'pending')
+      expect(page).to_not have_select(selected: 'packaged')
     end
 
     expect(current_path).to eq("/merchants/#{merchant_1.id}/invoices/#{invoice_1.id}")
