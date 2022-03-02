@@ -1,22 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  it {should belong_to :merchant}
-  it {should have_many :invoice_items}
-  it {should have_many(:invoices).through(:invoice_items)}
+  it { should belong_to :merchant }
+  it { should have_many :invoice_items }
+  it { should have_many(:invoices).through(:invoice_items) }
 
-  it {should validate_presence_of :merchant_id}
-  it {should validate_presence_of :name}
-  it {should validate_presence_of :unit_price}
-  it {should validate_presence_of :description}
+  it { should validate_presence_of :merchant_id }
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :unit_price }
+  it { should validate_presence_of :description }
 
-  it {should validate_numericality_of :merchant_id}
-  it {should validate_numericality_of :unit_price}
+  it { should validate_numericality_of :merchant_id }
+  it { should validate_numericality_of :unit_price }
 
   describe 'class methods' do
     before(:each) do
       @merchant_1 = create(:merchant)
-      #all items belong to merchant 1
+      # all items belong to merchant 1
       @item_1 = create(:item, merchant_id: @merchant_1.id, name: 'Stuffed Bear')
       @item_2 = create(:item, merchant_id: @merchant_1.id, name: 'Doll')
       @item_3 = create(:item, merchant_id: @merchant_1.id, name: 'Roller Skates')
@@ -52,14 +52,13 @@ RSpec.describe Item, type: :model do
     end
 
     it 'will list the names of the 5 most popular items ranked by total revenue' do
-
       expect(Item.most_popular_items(@merchant_1)).to eq([@item_1, @item_6, @item_2, @item_3, @item_5])
     end
 
     describe 'instance methods' do
       before(:each) do
         @merchant_1 = create(:merchant)
-        #all items belong to merchant 1
+        # all items belong to merchant 1
         @item_1 = create(:item, merchant_id: @merchant_1.id, name: 'Stuffed Bear')
         @item_2 = create(:item, merchant_id: @merchant_1.id, name: 'Doll')
         @item_3 = create(:item, merchant_id: @merchant_1.id, name: 'Roller Skates')
@@ -95,10 +94,9 @@ RSpec.describe Item, type: :model do
       end
 
       it 'can show each items best day' do
-
         best_day = @item_1.best_day
-        expect(best_day[0].created_at).to eq("2012-03-21 14:54:09")
+        expect(best_day[0].created_at).to eq('2012-03-21 14:54:09')
       end
-    end 
+    end
   end
 end
