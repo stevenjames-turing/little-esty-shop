@@ -131,7 +131,50 @@ RSpec.describe Merchant, type: :model do
       end
     end
     describe '.items_ready_to_ship' do 
-      xit '' do 
+      it 'returns items that have been ordered but not shipped as well as invoice that ordered item' do 
+        merchant = create(:merchant)
+        item_1 = create(:item, merchant_id: merchant.id)
+        item_2 = create(:item, merchant_id: merchant.id)
+        item_3 = create(:item, merchant_id: merchant.id)
+        item_4 = create(:item, merchant_id: merchant.id)
+        item_5 = create(:item, merchant_id: merchant.id)
+
+        customer_1 = create(:customer)
+        invoice_1 = create(:invoice, customer_id: customer_1.id, status: 0, id: 1)
+        invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
+        invoice_item_1 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_1.id, status: 1)
+        transaction_1 = create(:transaction, invoice_id: invoice_1.id)
+
+        customer_2 = create(:customer)
+        invoice_2 = create(:invoice, customer_id: customer_2.id, status: 0, id: 2)
+        invoice_item_2 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_2.id, status: 1)
+        invoice_item_2 = create(:invoice_item, item_id: item_3.id, invoice_id: invoice_2.id, status: 1)
+        transaction_2 = create(:transaction, invoice_id: invoice_2.id)
+
+        customer_3 = create(:customer)
+        invoice_3 = create(:invoice, customer_id: customer_3.id, status: 0, id: 3)
+        invoice_item_3 = create(:invoice_item, item_id: item_3.id, invoice_id: invoice_3.id, status: 1)
+        invoice_item_3 = create(:invoice_item, item_id: item_4.id, invoice_id: invoice_3.id, status: 1)
+        invoice_item_3 = create(:invoice_item, item_id: item_5.id, invoice_id: invoice_3.id, status: 1)
+        transaction_4 = create(:transaction, invoice_id: invoice_3.id)
+
+        customer_4 = create(:customer)
+        invoice_4 = create(:invoice, customer_id: customer_4.id, status: 0, id: 4)
+        invoice_item_4 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_4.id, status: 1)
+        transaction_7 = create(:transaction, invoice_id: invoice_4.id)
+
+        customer_5 = create(:customer)
+        invoice_5 = create(:invoice, customer_id: customer_5.id, status: 0, id: 5)
+        invoice_item_5 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_5.id, status: 1)
+        transaction_11 = create(:transaction, invoice_id: invoice_5.id)
+
+        customer_6 = create(:customer)
+        invoice_6 = create(:invoice, customer_id: customer_6.id, status: 0, id: 6)
+        invoice_item_6 = create(:invoice_item, item_id: item_3.id, invoice_id: invoice_6.id, status: 1)
+        transaction_15 = create(:transaction, invoice_id: invoice_6.id)
+
+        items_ready_to_ship = merchant.items_ready_to_ship.map { |item| [item.name, item.id] }
+        expect(items_ready_to_ship).to eq([["Item16", 1], ["Item15", 1], ["Item17", 2], ["Item16", 2], ["Item17", 3], ["Item18", 3], ["Item19", 3], ["Item15", 4], ["Item16", 5], ["Item17", 6]])
         
       end
     end
