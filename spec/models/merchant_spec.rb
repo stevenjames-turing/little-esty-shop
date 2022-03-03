@@ -183,7 +183,7 @@ RSpec.describe Merchant, type: :model do
         transaction_15 = create(:transaction, invoice_id: invoice_6.id)
 
         items_ready_to_ship = merchant.items_ready_to_ship.map { |item| [item.name, item.id] }
-        expect(items_ready_to_ship).to eq([["Item2", 1], ["Item1", 1], ["Item3", 2], ["Item2", 2], ["Item3", 3], ["Item4", 3], ["Item5", 3], ["Item1", 4], ["Item2", 5], ["Item3", 6]])
+        expect(items_ready_to_ship).to eq([["Item1", 1], ["Item2", 1], ["Item2", 2], ["Item3", 2], ["Item3", 3], ["Item4", 3], ["Item5", 3], ["Item1", 4], ["Item2", 5], ["Item3", 6]]).or(eq([["Item2", 1], ["Item1", 1], ["Item3", 2], ["Item2", 2], ["Item3", 3], ["Item4", 3], ["Item5", 3], ["Item1", 4], ["Item2", 5], ["Item3", 6]]))
       end
     end
     describe '.best_day' do
