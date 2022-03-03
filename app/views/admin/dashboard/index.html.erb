@@ -9,11 +9,23 @@
 <h3>Top Customers</h3>
     <% @top_customers.each do |customer| %>
     <ul>
-        <li>Customer: <%="#{customer.first_name} #{customer.last_name} "%> </li> 
-        <li>Successful Transactions: <%=" #{customer.count}" %> 
+        <li>Customer: <%="#{customer.first_name} #{customer.last_name} "%> </li>
+        <li>Successful Transactions: <%=" #{customer.count}" %>
         </li>
     </ul>
-    
+
     <% end %>
-    
+
+</div>
+
+<div class = "incomplete_invoices">
+<h3>Incomplete Invoices</h3>
+<% @incomplete.each do |invoice|  %>
+    <ul>
+        <li><a href = "/admin/invoices/<%= "#{invoice.id}"%>"> <%= invoice.id%> </a></li>
+        <li>Created: <%= date_formatter(invoice.created_at)%></li>
+    </ul>
+
+    <% end %>
+
 </div>

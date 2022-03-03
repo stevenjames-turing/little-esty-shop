@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
+
   describe 'validations' do 
     it {should validate_presence_of :first_name}
     it {should validate_presence_of(:last_name)}
@@ -64,5 +65,5 @@ RSpec.describe Customer, type: :model do
         expect(Customer.transaction_count(customer_4.id)).to eq(5)
       end
     end
-  end 
+  end
 end

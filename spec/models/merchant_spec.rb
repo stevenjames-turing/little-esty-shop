@@ -1,37 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
-  describe 'validations' do 
-    it {should validate_presence_of :name}
+  describe 'validations' do
+    it { should validate_presence_of :name }
   end
 
-  describe 'relationships' do 
-    it {should have_many :items}
-    it {should have_many(:invoice_items).through(:items)}
+  describe 'relationships' do
+    it { should have_many :items }
+    it { should have_many(:invoice_items).through(:items) }
   end
 
-  before(:each) do 
-    @merchant_1 = create(:merchant, name: "Merchant 1")
+  before(:each) do
+    @merchant_1 = create(:merchant, name: 'Merchant 1')
     @item_1 = create(:item, merchant_id: @merchant_1.id, name: 'Stuffed Bear')
     @item_2 = create(:item, merchant_id: @merchant_1.id, name: 'Doll')
-  
-    @merchant_2 = create(:merchant, name: "Merchant 2")
+
+    @merchant_2 = create(:merchant, name: 'Merchant 2')
     @item_3 = create(:item, merchant_id: @merchant_2.id, name: 'Roller Skates')
     @item_4 = create(:item, merchant_id: @merchant_2.id, name: 'Yoyo')
-    
-    @merchant_3 = create(:merchant, name: "Merchant 3")
+
+    @merchant_3 = create(:merchant, name: 'Merchant 3')
     @item_5 = create(:item, merchant_id: @merchant_3.id, name: 'Coloring Book')
     @item_6 = create(:item, merchant_id: @merchant_3.id, name: 'RC Car')
-    
-    @merchant_4 = create(:merchant, name: "Merchant 4")
+
+    @merchant_4 = create(:merchant, name: 'Merchant 4')
     @item_7 = create(:item, merchant_id: @merchant_4.id, name: 'Gift Card')
-    
-    @merchant_5 = create(:merchant, name: "Merchant 5")
+
+    @merchant_5 = create(:merchant, name: 'Merchant 5')
     @item_8 = create(:item, merchant_id: @merchant_5.id, name: 'Costume')
-    
-    @merchant_6 = create(:merchant, name: "Merchant 6")
+
+    @merchant_6 = create(:merchant, name: 'Merchant 6')
     @item_9 = create(:item, merchant_id: @merchant_6.id, name: 'Puzzle')
-    
+
     @invoice_1 = create(:invoice, created_at: '2012-03-21 14:54:09 UTC', status: 1)
     @invoice_2 = create(:invoice, created_at: '2012-03-22 14:54:09 UTC', status: 1)
     @invoice_3 = create(:invoice, created_at: '2012-03-22 14:54:09 UTC', status: 1)
@@ -42,18 +42,28 @@ RSpec.describe Merchant, type: :model do
     @invoice_8 = create(:invoice, created_at: '2012-03-27 14:54:09 UTC', status: 1)
     @invoice_9 = create(:invoice, created_at: '2012-03-26 14:54:09 UTC', status: 1)
     @invoice_10 = create(:invoice, created_at: '2012-03-27 14:54:09 UTC', status: 1)
-    
-    @invoice_item_1 = create(:invoice_item, unit_price: 30, quantity: 7, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 2)
-    @invoice_item_2 = create(:invoice_item, unit_price: 30, quantity: 4, item_id: @item_1.id, invoice_id: @invoice_2.id, status: 2)
-    @invoice_item_3 = create(:invoice_item, unit_price: 50, quantity: 4, item_id: @item_2.id, invoice_id: @invoice_3.id, status: 2)
-    @invoice_item_4 = create(:invoice_item, unit_price: 40, quantity: 4, item_id: @item_3.id, invoice_id: @invoice_4.id, status: 2)
-    @invoice_item_5 = create(:invoice_item, unit_price: 20, quantity: 4, item_id: @item_4.id, invoice_id: @invoice_5.id, status: 2)
-    @invoice_item_6 = create(:invoice_item, unit_price: 90, quantity: 1, item_id: @item_5.id, invoice_id: @invoice_6.id, status: 2)
-    @invoice_item_7 = create(:invoice_item, unit_price: 240, quantity: 1, item_id: @item_6.id, invoice_id: @invoice_7.id, status: 2)
-    @invoice_item_8 = create(:invoice_item, unit_price: 200, quantity: 1, item_id: @item_7.id, invoice_id: @invoice_8.id, status: 2)
-    @invoice_item_9 = create(:invoice_item, unit_price: 45, quantity: 1, item_id: @item_8.id, invoice_id: @invoice_9.id, status: 2)
-    @invoice_item_10 = create(:invoice_item, unit_price: 10, quantity: 1, item_id: @item_9.id, invoice_id: @invoice_10.id, status: 2)
-    
+
+    @invoice_item_1 = create(:invoice_item, unit_price: 30, quantity: 7, item_id: @item_1.id,
+                                            invoice_id: @invoice_1.id, status: 2)
+    @invoice_item_2 = create(:invoice_item, unit_price: 30, quantity: 4, item_id: @item_1.id,
+                                            invoice_id: @invoice_2.id, status: 2)
+    @invoice_item_3 = create(:invoice_item, unit_price: 50, quantity: 4, item_id: @item_2.id,
+                                            invoice_id: @invoice_3.id, status: 2)
+    @invoice_item_4 = create(:invoice_item, unit_price: 40, quantity: 4, item_id: @item_3.id,
+                                            invoice_id: @invoice_4.id, status: 2)
+    @invoice_item_5 = create(:invoice_item, unit_price: 20, quantity: 4, item_id: @item_4.id,
+                                            invoice_id: @invoice_5.id, status: 2)
+    @invoice_item_6 = create(:invoice_item, unit_price: 90, quantity: 1, item_id: @item_5.id,
+                                            invoice_id: @invoice_6.id, status: 2)
+    @invoice_item_7 = create(:invoice_item, unit_price: 240, quantity: 1, item_id: @item_6.id,
+                                            invoice_id: @invoice_7.id, status: 2)
+    @invoice_item_8 = create(:invoice_item, unit_price: 200, quantity: 1, item_id: @item_7.id,
+                                            invoice_id: @invoice_8.id, status: 2)
+    @invoice_item_9 = create(:invoice_item, unit_price: 45, quantity: 1, item_id: @item_8.id,
+                                            invoice_id: @invoice_9.id, status: 2)
+    @invoice_item_10 = create(:invoice_item, unit_price: 10, quantity: 1, item_id: @item_9.id,
+                                             invoice_id: @invoice_10.id, status: 2)
+
     @transaction_1 = create(:transaction, invoice_id: @invoice_item_1.invoice_id, result: 0)
     @transaction_2 = create(:transaction, invoice_id: @invoice_item_2.invoice_id, result: 0)
     @transaction_3 = create(:transaction, invoice_id: @invoice_item_3.invoice_id, result: 0)
@@ -66,17 +76,16 @@ RSpec.describe Merchant, type: :model do
     @transaction_10 = create(:transaction, invoice_id: @invoice_item_10.invoice_id, result: 0)
   end
 
-  describe 'class methods' do 
-    describe '#top_merchants(count)' do 
+  describe 'class methods' do
+    describe '#top_merchants(count)' do
       it 'returns the top 5 merchants by revenue' do
-        top_merchants = Merchant.top_merchants(5).map { |merchant| merchant }
         expect(Merchant.top_merchants(5)).to eq([@merchant_1, @merchant_3, @merchant_2, @merchant_4, @merchant_5])
       end
     end
-  end 
-  
-  describe 'instance methods' do 
-    describe '.favorite_customers(count)' do 
+  end
+
+  describe 'instance methods' do
+    describe '.favorite_customers(count)' do
       it 'returns top customers by number of successful transactions with a single merchant' do
         merchant = create(:merchant)
         item = create(:item, merchant_id: merchant.id)
@@ -175,11 +184,10 @@ RSpec.describe Merchant, type: :model do
 
         items_ready_to_ship = merchant.items_ready_to_ship.map { |item| [item.name, item.id] }
         expect(items_ready_to_ship).to eq([["Item16", 1], ["Item15", 1], ["Item17", 2], ["Item16", 2], ["Item17", 3], ["Item18", 3], ["Item19", 3], ["Item15", 4], ["Item16", 5], ["Item17", 6]])
-        
       end
     end
-    describe '.best_day' do 
-      it 'returns a merchants best day according to highest single day revenue' do 
+    describe '.best_day' do
+      it 'returns a merchants best day according to highest single day revenue' do
         best_day = @merchant_1.best_day
         expect(best_day[0].created_at).to eq('2012-03-22 14:54:09 UTC')
       end
