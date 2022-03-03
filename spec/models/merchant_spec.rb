@@ -142,11 +142,11 @@ RSpec.describe Merchant, type: :model do
     describe '.items_ready_to_ship' do 
       it 'returns items that have been ordered but not shipped as well as invoice that ordered item' do 
         merchant = create(:merchant)
-        item_1 = create(:item, merchant_id: merchant.id)
-        item_2 = create(:item, merchant_id: merchant.id)
-        item_3 = create(:item, merchant_id: merchant.id)
-        item_4 = create(:item, merchant_id: merchant.id)
-        item_5 = create(:item, merchant_id: merchant.id)
+        item_1 = create(:item, merchant_id: merchant.id, name: "Item1")
+        item_2 = create(:item, merchant_id: merchant.id, name: "Item2")
+        item_3 = create(:item, merchant_id: merchant.id, name: "Item3")
+        item_4 = create(:item, merchant_id: merchant.id, name: "Item4")
+        item_5 = create(:item, merchant_id: merchant.id, name: "Item5")
 
         customer_1 = create(:customer)
         invoice_1 = create(:invoice, customer_id: customer_1.id, status: 0, id: 1)
@@ -183,7 +183,7 @@ RSpec.describe Merchant, type: :model do
         transaction_15 = create(:transaction, invoice_id: invoice_6.id)
 
         items_ready_to_ship = merchant.items_ready_to_ship.map { |item| [item.name, item.id] }
-        expect(items_ready_to_ship).to eq([["Item16", 1], ["Item15", 1], ["Item17", 2], ["Item16", 2], ["Item17", 3], ["Item18", 3], ["Item19", 3], ["Item15", 4], ["Item16", 5], ["Item17", 6]])
+        expect(items_ready_to_ship).to eq([["Item2", 1], ["Item1", 1], ["Item3", 2], ["Item2", 2], ["Item3", 3], ["Item4", 3], ["Item5", 3], ["Item1", 4], ["Item2", 5], ["Item3", 6]])
       end
     end
     describe '.best_day' do
